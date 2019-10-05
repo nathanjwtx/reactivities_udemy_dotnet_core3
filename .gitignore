@@ -1,6 +1,6 @@
 .Course-Assets
 */obj/*
-*\bin/*
+*/bin/*
 .vscode
 .idea
 .vs
