@@ -1,3 +1,4 @@
 .Course-Assets
-*\obj
-*\bin
+*/obj/*
+*\bin/*
+.vscode
