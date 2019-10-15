@@ -27,22 +27,7 @@ namespace Application.Activities
 
             public async Task<List<Activity>> Handle(Query request, CancellationToken cancellationToken)
             {
-                // this is a contrived way of using the cancellation token for demo purposes
-                try
-                {
-                    for (var i = 0; i < 10; i++)
-                    {
-                        cancellationToken.ThrowIfCancellationRequested();
-                        await Task.Delay(1000, cancellationToken).ConfigureAwait(false);
-                        _logger.LogInformation($"Task {i} has completed");
-                    }
-                }
-                catch (Exception ex) when (ex is TaskCanceledException)
-                {
-                    _logger.LogInformation("Task was cancelled");
-                }
-
-                var activities = await _context.Activities.ToListAsync(cancellationToken).ConfigureAwait(false);
+                var activities = await _context.Activities.ToListAsync().ConfigureAwait(false);
 
                 return activities;
             }
