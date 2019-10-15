@@ -5,6 +5,7 @@ using Domain;
 using Application.Activities;
 using System.Collections.Generic;
 using System;
+using System.Threading;
 
 namespace API.Controllers
 {
@@ -20,9 +21,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Activity>>> List()
+        public async Task<ActionResult<List<Activity>>> List(CancellationToken ct)
         {
-            return await _mediator.Send(new List.Query());
+            return await _mediator.Send(new List.Query(), ct).ConfigureAwait(false);
         }
 
         [HttpGet("{id}")]
