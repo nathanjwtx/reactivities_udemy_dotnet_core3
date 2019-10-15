@@ -31,5 +31,12 @@ namespace API.Controllers
         {
             return await _mediator.Send(new Details.Query{ Id = id }).ConfigureAwait(false);
         }
+
+        [HttpPost]
+        // FromBody isn't required as [ApiController] is in place. Added for clarification
+        public async Task<ActionResult<Unit>> Create([FromBody] Create.Command command)
+        {
+            return await _mediator.Send(command);
+        }
     }
 }
