@@ -2,7 +2,8 @@
 .Course-Assets
 */obj/*
 */bin/*
-.vscode
+
+
 .idea
 .vs
 */*.user
