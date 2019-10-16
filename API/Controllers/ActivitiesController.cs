@@ -36,7 +36,14 @@ namespace API.Controllers
         // FromBody isn't required as [ApiController] is in place. Added for clarification
         public async Task<ActionResult<Unit>> Create([FromBody] Create.Command command)
         {
-            return await _mediator.Send(command);
+            return await _mediator.Send(command).ConfigureAwait(false);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Unit>> Edit(Guid id, Edit.Command command)
+        {
+            command.Id = id;
+            return await _mediator.Send(command).ConfigureAwait(false);
         }
     }
 }
