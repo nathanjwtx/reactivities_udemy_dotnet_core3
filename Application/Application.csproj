@@ -7,10 +7,10 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj" />
-    <ProjectReference Include="..\Persistence\Persistence.csproj" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="*" />
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Persistence\Persistence.csproj" />
   </ItemGroup>
 </Project>
