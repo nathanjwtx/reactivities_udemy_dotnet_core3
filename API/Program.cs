@@ -14,20 +14,20 @@ namespace API
         {
             var host = CreateHostBuilder(args).Build();
 
-            using (var scope = host.Services.CreateScope())
+            using var scope = host.Services.CreateScope();
+            var services = scope.ServiceProvider;
+            // check for database existence and create if it doesn't
+            try
             {
-                var services = scope.ServiceProvider;
-                try
-                {
-                    var context = services.GetRequiredService<DataContext>();
-                    context.Database.Migrate();
-                    Seed.SeedData(context);
-                }
-                catch (Exception e)
-                {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(e, "An error occurred during migration");
-                }
+                //look for DataContext as defined in Persistence
+                var context = services.GetRequiredService<DataContext>();
+                context.Database.Migrate();
+                Seed.SeedData(context);
+            }
+            catch (Exception e)
+            {
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                logger.LogError(e, "An error occurred during migration");
             }
 
             host.Run();
@@ -35,9 +35,6 @@ namespace API
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+                .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>());
     }
 }

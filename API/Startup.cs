@@ -14,6 +14,7 @@ namespace API
     {
         public Startup(IConfiguration configuration)
         {
+            // comes from appsettings files
             Configuration = configuration;
         }
 
@@ -46,6 +47,8 @@ namespace API
             // use if not creating a policy
             // app.UseCors(options => options.WithOrigins("http://localhost:3000").AllowAnyMethod());
             app.UseCors("CorsPolicy");
+
+            // coming back to this later in the course
             // app.UseHttpsRedirection();
 
             app.UseRouting();

@@ -12,6 +12,7 @@ namespace API.Controllers
     public class ValuesController : ControllerBase
     {
         public DataContext Context { get; }
+
         public ValuesController(DataContext context)
         {
             this.Context = context;
@@ -22,7 +23,7 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<Value>>> Get()
         {
             // use async when making database calls
-            var values = await Context.Values.ToListAsync();
+            var values = await Context.Values.ToListAsync().ConfigureAwait(false);
             return Ok(values);
         }
 
@@ -30,7 +31,7 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<string>> Get(int id)
         {
-            var value = await Context.Values.FindAsync(id);
+            var value = await Context.Values.FindAsync(id).ConfigureAwait(false);
             return Ok(value);
         }
     }
