@@ -25,12 +25,11 @@ namespace Application.Activities
 
             public Handler(DataContext context)
             {
-                this._context = context;
+                _context = context;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-
                 var activity = await _context.Activities.FindAsync(request.Id).ConfigureAwait(false);
 
                 if (activity == null)
@@ -46,12 +45,12 @@ namespace Application.Activities
                 activity.Venue = request.Venue ?? activity.Venue;
 
                 var success = await _context.SaveChangesAsync().ConfigureAwait(false) > 0;
-        
+
                 if (success)
                 {
                     return Unit.Value;
                 }
-        
+
                 throw new Exception ("Problem saving changes");
             }
         }

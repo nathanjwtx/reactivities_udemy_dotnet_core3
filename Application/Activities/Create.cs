@@ -26,8 +26,7 @@ namespace Application.Activities
 
             public Handler(DataContext context)
             {
-                this._context = context;
-
+                _context = context;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
@@ -49,6 +48,7 @@ namespace Application.Activities
 
                 if (success)
                 {
+                    // returns an empty object to controller to indicate success
                     return Unit.Value;
                 }
 
