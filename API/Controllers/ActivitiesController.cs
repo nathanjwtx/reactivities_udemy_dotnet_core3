@@ -5,6 +5,7 @@ using Domain;
 using Application.Activities;
 using System.Collections.Generic;
 using System;
+using System.Threading;
 
 namespace API.Controllers
 {
@@ -16,13 +17,14 @@ namespace API.Controllers
 
         public ActivitiesController(IMediator mediator)
         {
-            this._mediator = mediator;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Activity>>> List()
+        public async Task<ActionResult<List<Activity>>> List(CancellationToken cancellationToken)
         {
-            return await _mediator.Send(new List.Query()).ConfigureAwait(false);
+            // List.Query comes from Applications.Activities
+            return await _mediator.Send(new List.Query(), cancellationToken).ConfigureAwait(false);
         }
 
         [HttpGet("{id}")]

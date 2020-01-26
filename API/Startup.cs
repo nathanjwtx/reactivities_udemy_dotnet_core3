@@ -28,6 +28,8 @@ namespace API
                 {
                     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
                 }));
+            // MediatR only needs to know where to look for one handler. It will find the others in the assembly
+            // assuming the same assembly/project
             services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddDbContext<DataContext>(opt =>
             {
