@@ -5,7 +5,7 @@ using Domain;
 
 namespace Persistence
 {
-    public class Seed
+    public static class Seed
     {
         public static void SeedData(DataContext context)
         {
@@ -105,8 +105,9 @@ namespace Persistence
                     }
                 };
 
-                context.Activities.AddRangeAsync(activities);
-                context.SaveChangesAsync();
+                // this could be switched to non-async calls
+                context.Activities.AddRangeAsync(activities).ConfigureAwait(false);
+                context.SaveChangesAsync().ConfigureAwait(false);
             }
         }
     }
