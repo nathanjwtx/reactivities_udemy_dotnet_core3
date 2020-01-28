@@ -5,12 +5,17 @@ import { IActivity } from '../Models/activity';
 import NavBar from '../../features/nav/NavBar';
 import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
 
-
 const App = () => {
 const [activities, setActivites] = useState<IActivity[]>([]);
+const [selectedActivity, setSelectedActivity] = useState<IActivity | null>(null);
+
+const handleSelectActivity = (id: string) => {
+  // set element of returned array to [0] because we are only returning a single item in this instance
+  // see bookmark in course section 61
+  setSelectedActivity(activities.filter(a => a.id === id)[0])
+}
 
 useEffect(() => {
-
     axios
       .get<IActivity[]>("http://localhost:5000/api/activities")
       .then(response => {
@@ -22,7 +27,11 @@ useEffect(() => {
       <Fragment>
         <NavBar/>
         <Container style={{marginTop: '7em'}}>
-          <ActivityDashboard activities={activities}/>
+          <ActivityDashboard 
+            activities={activities}
+            selectActivity={handleSelectActivity}
+            selectedActivity={selectedActivity}
+          />
         </Container>
       </Fragment>
     );

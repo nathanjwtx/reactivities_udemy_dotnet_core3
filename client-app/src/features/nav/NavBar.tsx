@@ -1,7 +1,6 @@
 import React from 'react'
 import { Menu, Container, Button } from 'semantic-ui-react'
 
-
 const NavBar = () => {
     return (
       <Menu fixed='top' inverted>
