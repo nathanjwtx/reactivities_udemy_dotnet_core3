@@ -8,6 +8,7 @@ import ActivityDashboard from '../../features/activities/dashboard/ActivityDashb
 const App = () => {
 const [activities, setActivites] = useState<IActivity[]>([]);
 const [selectedActivity, setSelectedActivity] = useState<IActivity | null>(null);
+const [editMode, setEditMode] = useState(false);
 
 const handleSelectActivity = (id: string) => {
   // set element of returned array to [0] because we are only returning a single item in this instance
@@ -31,6 +32,8 @@ useEffect(() => {
             activities={activities}
             selectActivity={handleSelectActivity}
             selectedActivity={selectedActivity}
+            editMode={editMode}
+            setEditMode={setEditMode}
           />
         </Container>
       </Fragment>
