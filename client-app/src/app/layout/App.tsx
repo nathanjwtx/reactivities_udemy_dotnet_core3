@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
-import { Header, Icon, List, Container } from 'semantic-ui-react'
+import { Container } from 'semantic-ui-react'
 import { IActivity } from '../Models/activity';
 import NavBar from '../../features/nav/NavBar';
 import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
@@ -19,6 +19,20 @@ const handleSelectActivity = (id: string) => {
 const handleOpenCreateForm = () => {
   setSelectedActivity(null);
   setEditMode(true);
+}
+
+const handleCreateActivity = (activity: IActivity) => {
+  setActivites([...activities, activity]);
+  // after creatiion display new activity
+  setSelectedActivity(activity);
+  // hide the edit form
+  setEditMode(false);
+}
+
+const handleEditActivity = (activity: IActivity) => {
+  setActivites([...activities.filter(a => a.id !== activity.id), activity]);
+  setSelectedActivity(activity);
+  setEditMode(false);
 }
 
 useEffect(() => {
@@ -40,6 +54,8 @@ useEffect(() => {
             setSelectedActivity={setSelectedActivity}
             editMode={editMode}
             setEditMode={setEditMode}
+            handleCreateActivity={handleCreateActivity}
+            handleEditActivity={handleEditActivity}
           />
         </Container>
       </Fragment>
