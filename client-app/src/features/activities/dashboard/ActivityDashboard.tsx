@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, List } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { IActivity } from '../../../app/Models/activity';
 import ActivityList from './ActivityList';
 import ActivityDetails from '../details/ActivityDetails';
@@ -14,6 +14,7 @@ interface IProps {
   setEditMode: (editMode: boolean) => void;
   handleCreateActivity: (activity: IActivity) => void;
   handleEditActivity: (activity: IActivity) => void;
+  deleteActivity: (id: string) => void;
 }
 
 const ActivityDashboard: React.FC<IProps> = ({
@@ -24,13 +25,16 @@ const ActivityDashboard: React.FC<IProps> = ({
   editMode,
   setEditMode,
   handleCreateActivity,
-  handleEditActivity}) => {
+  handleEditActivity,
+  deleteActivity
+  }) => {
   return (
     <Grid>
       <Grid.Column width={10}>
         <ActivityList 
           activities={activities}
           selectActivity={selectActivity}
+          deleteActivity={deleteActivity}
         />
       </Grid.Column>
       <Grid.Column width={6}>
@@ -41,6 +45,8 @@ const ActivityDashboard: React.FC<IProps> = ({
             setSelectedActivity={setSelectedActivity}
           />)}
         {editMode && (<ActivityForm
+          // show blank form when clicking create after viewing/editing an activity
+          key={selectedActivity && selectedActivity.id || 0}
           setEditMode={setEditMode}
           activity={selectedActivity!}
           createActivity={handleCreateActivity}
